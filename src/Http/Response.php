@@ -4,5 +4,5 @@ namespace PhpLite\Http;
 
 class Response
 {
-
+    //
 }
