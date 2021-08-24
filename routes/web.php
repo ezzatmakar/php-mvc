@@ -1,7 +1,6 @@
 <?php
 
+use App\Controllers\HomeController;
 use PhpLite\Http\Route;
 
-Route::get('/', function (){
-    return 'Hello';
-});
+Route::get('/', [HomeController::class, 'index']);
