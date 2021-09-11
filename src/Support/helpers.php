@@ -1,5 +1,7 @@
 <?php
 
+use PhpLite\View\View;
+
 if (!function_exists('env'))
 {
   function env($key, $default = null) {
@@ -28,4 +30,11 @@ if(!function_exists('views_path'))
     {
         return base_path(). 'views/';
     }
+}
+
+if (!function_exists('view')){
+    function view($view, $params = []){
+        View::make($view, $params);
+    }
+
 }
