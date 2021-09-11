@@ -13,6 +13,14 @@ class Request
     {
         $path = $_SERVER['REDIRECT_URL'] ?? '/';
 
-        return str_contains($path, '?') ? explode('?', $path)[0] : $path;
+        if (strpos($path, "?") !== false) {
+
+            $array = explode("?", $path);
+            $path = reset($array);
+        }
+
+
+        return $path;
+//        return str_contains($path, '?') ? explode('?', $path)[0] : $path;
     }
 }

@@ -9,9 +9,12 @@ class Route
     public Response $response;
 
     public function __construct(Request $request, Response $response){
+
         $this->request = $request;
         $this->response = $response;
+
     }
+
     protected static array $routes = [];
 
     public static function get($route, $action): void
@@ -23,12 +26,14 @@ class Route
     {
         self::$routes['post'][$route] = $action;
     }
+
     public function resolve()
     {
         $path = $this->request->path();
         $method = $this->request->method();
 
         $action = self::$routes[$method][$path] ?? false;
+
 
         if(!$action){
             return;
@@ -59,6 +64,5 @@ class Route
             call_user_func_array( [new $action[0], $action[1]], []);
         }
 
-        dump($action);
     }
 }
