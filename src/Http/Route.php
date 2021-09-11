@@ -3,6 +3,8 @@
 namespace PhpLite\Http;
 
 
+use PhpLite\View\View;
+
 class Route
 {
     public Request $request;
@@ -31,37 +33,21 @@ class Route
     {
         $path = $this->request->path();
         $method = $this->request->method();
-
         $action = self::$routes[$method][$path] ?? false;
 
 
-        if(!$action){
-            return;
+        if (!array_key_exists($path, self::$routes[$method])){
+            View::makeError('error-404');
         }
-
         // 404 handling
 
-        /**
-         * handling the request method
-         * if the request action is a callback function
-         *
-         * @example get($route, $action function () { echo 'Hello'; })
-         */
-
-        if(is_callable($action)){
+        if (is_callable($action)) {
             call_user_func_array($action, []);
-        }
+        }elseif(is_array($action)) {
+            $controller = new $action[0];
+            $method = $action[1];
 
-        /**
-         * handling the request if method
-         * the request action is an array
-         * 
-         * @example get($route, [RequestedController::class, 'index'])
-         * 
-         * using new before the requested controller to not call statically
-         */
-        if(is_array($action)){
-            call_user_func_array( [new $action[0], $action[1]], []);
+            call_user_func_array([$controller, $method], []);
         }
 
     }

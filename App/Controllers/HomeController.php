@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
+use PhpLite\View\View;
+
 class HomeController
 {
-    public function index(): string
+    public function index()
     {
-        echo 'Hello';
+        return View::make('home');
     }
 }
