@@ -12,19 +12,18 @@ class View
         $viewContent = self::getMainContent($view, false, $params);
 
         echo str_replace('{{content}}', $viewContent, $baseContent);
-
     }
 
     protected static function getBaseContent()
     {
         ob_start();
-        include base_path().'views/layouts/main.php';
+        include base_path() . 'views/layouts/main.php';
 
         return ob_get_clean();
-
     }
 
-    public static function makeError($error){
+    public static function makeError($error)
+    {
         self::getMainContent($error, true);
     }
 
@@ -35,7 +34,7 @@ class View
         $path = $isError ? views_path() . 'errors/' : views_path();
 
         // handling views
-        if(str_contains($view, '.')){ // check if is contains . that means directory
+        if (str_contains($view, '.')) { // check if is contains . that means directory
 
             $views = explode('.', $view); // explode view path with .
             // loop throw the view string
@@ -43,8 +42,7 @@ class View
             // loop and return the last element of the array and makes it as the view
             // in this example returns  index.php as the view => it's the last element
             foreach ($views as $view) {
-                if(is_dir($path .$view))
-                {
+                if (is_dir($path . $view)) {
                     $path = $path . $view . '/';
                 }
             }
@@ -53,7 +51,7 @@ class View
             $view = $path . end($views) . '.php';
 
 
-        }else{
+        } else {
             // if the returned view string doesn't contain .
             $view = $path . $view . '.php';
         }
@@ -62,11 +60,10 @@ class View
             $$param = $value;
         }
 
-
         // buffering the view content if not error
-        if ($isError){
+        if ($isError) {
             include $view;
-        }else{
+        } else {
             ob_start();
             include $view;
             return ob_get_clean();

@@ -10,7 +10,8 @@ class Route
     public Request $request;
     public Response $response;
 
-    public function __construct(Request $request, Response $response){
+    public function __construct(Request $request, Response $response)
+    {
 
         $this->request = $request;
         $this->response = $response;
@@ -36,14 +37,14 @@ class Route
         $action = self::$routes[$method][$path] ?? false;
 
 
-        if (!array_key_exists($path, self::$routes[$method])){
+        if (!array_key_exists($path, self::$routes[$method])) {
             View::makeError('error-404');
         }
         // 404 handling
 
         if (is_callable($action)) {
             call_user_func_array($action, []);
-        }elseif(is_array($action)) {
+        } elseif (is_array($action)) {
             $controller = new $action[0];
             $method = $action[1];
 
