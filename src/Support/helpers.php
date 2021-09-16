@@ -1,5 +1,6 @@
 <?php
 
+use PhpLite\Application;
 use PhpLite\View\View;
 
 if (!function_exists('env')) {
@@ -36,4 +37,16 @@ if (!function_exists('view')) {
         View::make($view, $params);
     }
 
+}
+
+if (!function_exists('app')) {
+    function app()
+    {
+        static $instance = null;
+        if (!$instance) {
+            $instance = new Application();
+        }
+
+        return $instance;
+    }
 }

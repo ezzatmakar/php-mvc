@@ -14,8 +14,8 @@ class Application
 
     public function __construct()
     {
-        $this->request = new Request();
-        $this->response = new Response();
+        $this->request = new Request;
+        $this->response = new Response;
         $this->route = new Route($this->request, $this->response);
     }
 
