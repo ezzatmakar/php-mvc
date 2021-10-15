@@ -14,6 +14,9 @@ class View
         echo str_replace('{{content}}', $viewContent, $baseContent);
     }
 
+    /**
+     * @return false|string
+     */
     protected static function getBaseContent()
     {
         ob_start();
@@ -22,11 +25,20 @@ class View
         return ob_get_clean();
     }
 
+    /**
+     * @param $error
+     */
     public static function makeError($error)
     {
         self::getMainContent($error, true);
     }
 
+    /**
+     * @param $view
+     * @param false $isError
+     * @param array $params
+     * @return false|string|void
+     */
     protected static function getMainContent($view, $isError = false, $params = [])
     {
         // if any error exists return 404 error view
